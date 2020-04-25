@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+        nextcloud:
+                image: nextcloud
+                restart: always
+                ports:
+                        - 8080:80
+                links:
+                        - db
+                volumes:
+                        - nextcloud:/var/www/html
+
+        db:
+                image: mysql:5.7
+                restart: always
+                environment:
+                        - MYSQL_ROOT_PASSWORD=example
+                        - MYSQL_PASSWORD=example
+                        - MYSQL_DATABASE=db
+                        - MYSQL_USER=nextcloud
+                volumes:
+                        - db:/var/lib/mysql
+
+volumes:
+        nextcloud:
+        db:
+
